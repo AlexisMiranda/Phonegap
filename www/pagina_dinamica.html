@@ -16,14 +16,17 @@
 		$(document).ready(function(){
 
 			console.log("aosjdojosajd");
-			var lista=$("#lista");
+			var lista=$("#tabla");
 			var numero_de_elementos=200;
 			for(var i=0;i<numero_de_elementos;i++)
 			{
-				var li=$("<li id='li"+i+"'> Al pato le gustan "+i+" Picos en la raja </li>");
+				var li=$("<tr><td id='li"+i+"'> </td></tr>");
+				var imagen=$("<img  width='100' height='100' src='http://g.cdn.mersap.com/fotografia/files/2013/07/locas-imagenes-1.jpg'><b>Imagen "+i+"</b></img>");
+				var series=$("<input id='ejercicio'"+i+" type='text'>"+i+"</input>");
+				imagen.appendTo(li);
+				series.appendTo(li);
 				li.appendTo(lista);
 			}
-
 		});
 	</script>
 
@@ -38,10 +41,15 @@
 	</div><!-- /header -->
 
 	<div data-role="content" id="content1_page">
-	<ul id="lista">
-		
-	</ul>
-		
+	<table id="tabla">
+	<tr>
+		<td></td>
+		<td><b>Series</b></td>
+		<td><b>Repeticiones</b></td>
+		<td><b>Puntaje</b></td>
+
+	</tr>
+	</table>	
 	</div><!-- /content -->
 
 	<div data-role="footer">

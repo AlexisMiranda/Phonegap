@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Storage Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for Cordova to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Populate the database 
+    //
+    function populateDB(tx) {
+        tx.executeSql('DROP TABLE IF EXISTS maquina');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS maquina(id int primary key, nombre text,tipo_maquina text,ruta_imagen text)');
+        tx.executeSql('INSERT INTO maquina(id, nombre,tipo_maquina,ruta_imagen) VALUES (1, "maquina 1","tipo maquina 1","ruta")');
+        console.log('Pase los create and insert');
+    }
+
+    // Query the database
+    //
+    function queryDB(tx) {
+        tx.executeSql('SELECT * FROM maquina', [], querySuccess, errorCB);
+        console.log('genere la query');
+    }
+
+  function querySuccess(tx, results) {
+        var len = results.rows.length;
+        console.log("DEMO table: " + len + " rows found.");
+        for (var i=0; i<len; i++){
+            console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
+        }
+    } 
+   
+// Transaction error callback
+//
+function errorCB(err) {
+	console.log("Error processing SQL: "+err.code);
+}
+
+// Transaction success callback
+//
+function successCB() {
+	var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+	db.transaction(queryDB, errorCB);
+}
+
+// Cordova is ready
+//
+function onDeviceReady() {
+        var db = window.openDatabase("Gimnasio", "1.0", "Aplicacion gimnasio", 200000);
+        db.transaction(populateDB, errorCB, successCB);
+    }
+
+    </script>
+  </head>
+  <body>
+    <h1>Example</h1>
+    <p>Database</p>
+  </body>
+</html>
